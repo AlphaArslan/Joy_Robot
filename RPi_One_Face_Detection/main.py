@@ -6,13 +6,11 @@ from picamera import PiCamera
 
 
 ################ Setup
-def setup():
-    Camera = PiCamera()
-    rawCapture = PiRGBArray(camera)
-    time.sleep(0.2)
+camera = PiCamera()
+rawCapture = PiRGBArray(camera)
+time.sleep(0.2)
 
-
-    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 ################ Functions
 def get_frame():
@@ -26,7 +24,6 @@ def count_faces(frame):
     return str(faces.shape[0])
 
 if __name__ == '__main__':
-    setup()
     while True:
         frame = get_frame()
         faces_number = count_faces(frame)
