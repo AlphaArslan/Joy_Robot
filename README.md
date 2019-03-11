@@ -21,7 +21,9 @@
 #### Raspberry Pi One [Face Detection]
 ##### 1. Enable Camera module:
 > sudo raspi-config
+
 then go to interfaces and enable camera module
+
 > reboot
 
 ##### 2. Installing Python Library:
