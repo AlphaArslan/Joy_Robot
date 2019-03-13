@@ -63,6 +63,9 @@ Choose I2C and Enable it
 
 > sudo apt-get install libatlas-base-dev gfortran
 
+> sudo apt-get install libqt4-dev 
+
+
 ---
 ---
 # I2C Communication scheme
