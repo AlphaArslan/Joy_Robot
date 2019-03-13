@@ -44,21 +44,24 @@ Choose I2C and Enable it
 
 > sudo pip3 install smbus2
 
-##### 4. additional packages [Recommended]
-> sudo apt-get install libpng-devel
+##### 4. System packages 
+> sudo apt-get install libjasper-dev
 
-> sudo apt-get install libjpeg-turbo-devel
+> sudo apt-get install openexr
 
-> sudo apt-get install jasper-devel
+> sudo apt-get install libwebp-dev
 
-> sudo apt-get install openexr-devel
+> sudo apt-get install libjpeg-dev libpng-dev libtiff-dev
 
-> sudo apt-get install libtiff-devel
+> sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
 
-> sudo apt-get install libwebp-devel
+> sudo apt-get install libxvidcore-dev libx264-dev
 
+> sudo apt-get install libgtk-3-dev
 
+> sudo apt-get install libcanberra-gtk*
 
+> sudo apt-get install libatlas-base-dev gfortran
 
 ---
 ---
