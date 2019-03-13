@@ -44,6 +44,22 @@ Choose I2C and Enable it
 
 > sudo pip3 install smbus2
 
+##### 4. additional packages [Recommended]
+> sudo apt-get install libpng-devel
+
+> sudo apt-get install libjpeg-turbo-devel
+
+> sudo apt-get install jasper-devel
+
+> sudo apt-get install openexr-devel
+
+> sudo apt-get install libtiff-devel
+
+> sudo apt-get install libwebp-devel
+
+
+
+
 ---
 ---
 # I2C Communication scheme
