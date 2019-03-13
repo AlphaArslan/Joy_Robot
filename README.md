@@ -6,15 +6,17 @@
  * Responsible for the __Face Recognition__ operations.
  * Runs __Raspbain OS__.
  * Connects to a camera module.
+ * Communicates with Arduino Mega using I2C
 
 ##### 2. Raspberry Pi Two:
   * Responsible for the __Voice Commands__.
   * Run __AIY Raspbain__ provided by _Google_ [here](https://github.com/google/aiyprojects-raspbian/releases)
   * Connects to _Google AIY Kit_
+  * Controls DC motors
 
 ##### 3. Arduino Mega:
-  * Controls _servos_ and _DC motors_.
-  * Communicates with Raspberry Pi One & Two.
+  * Controls _servos_ and _Led Matrix_.
+  * Takes Commands from Raspberry Pi One through I2C.
 
 ---
 ## Setup
@@ -26,10 +28,27 @@ then go to interfaces and enable camera module
 
 > reboot
 
-##### 2. Installing Python Library:
+##### 2. Enable I2C Interface
+> sudo raspi-config
+
+Go to Interfacing Options
+Choose I2C and Enable it
+
+##### 3. Installing Python Library:
 
 > sudo pip3 install numpy
 
 > sudo pip3 install opencv-python
 
-> pip install "picamera[array]"
+> sudo pip3 install "picamera[array]"
+
+> sudo pip3 install smbus2
+
+---
+---
+# I2C Communication scheme
+<!-- Table1 -->
+|   Code   | meaning            |
+| -------- | ------------------ |
+| 1        | One face detected  |
+| 2        | Two Faces detected |
