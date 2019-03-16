@@ -1,6 +1,6 @@
 /**************************** Include ****************************/
 #include <Wire.h>
-#include <Servo.h>
+// #include <Servo.h>
 #include "LedControl.h"
 
 /**************************** Define *****************************/
@@ -12,29 +12,29 @@
 #define         DEVICES_NUMBER                4
 #define         BRIGHTNESS                    8
 
-// servo angles
-#define         SALUT_RU_ANGLE                90          // Right upper servo angle for SALUT move
-#define         SALUT_RL_ANGLE                45          // Right Lower servo angle for SALUT move
-#define         SALUT_LU_ANGLE                90          // Left upper servo angle for SALUT move
-#define         SALUT_LL_ANGLE                45          // Left Lower servo angle for SALUT move
+// // servo angles
+// #define         SALUT_RU_ANGLE                90          // Right upper servo angle for SALUT move
+// #define         SALUT_RL_ANGLE                45          // Right Lower servo angle for SALUT move
+// #define         SALUT_LU_ANGLE                90          // Left upper servo angle for SALUT move
+// #define         SALUT_LL_ANGLE                45          // Left Lower servo angle for SALUT move
 
-// pin connections
-#define         RIGHT_UPPER_SERVO             4
-#define         RIGHT_LOWER_SERVO             5
-#define         LEFT_UPPER_SERVO              6
-#define         LEFT_LOWER_SERVO              7
-#define         HEAD_HOR_SERVO                8           // horizontal
-#define         HEAD_VER_SERVO                9           // vertical
+// // pin connections
+// #define         RIGHT_UPPER_SERVO             4
+// #define         RIGHT_LOWER_SERVO             5
+// #define         LEFT_UPPER_SERVO              6
+// #define         LEFT_LOWER_SERVO              7
+// #define         HEAD_HOR_SERVO                8           // horizontal
+// #define         HEAD_VER_SERVO                9           // vertical
 
 /************************* Global Var. ***************************/
 int number = 0;
-Servo RU_servo;                                           //Right Upper Servo
-Servo RL_servo;                                           //Right Lower Servo
-Servo LU_servo;                                           //Left Upper Servo
-Servo LL_servo;                                           //Left Lower Servo
-Servo HH_servo;                                           //Head horizontal servo
-Servo HV_servo;                                           //Head vertical servo
-
+// Servo RU_servo;                                           //Right Upper Servo
+// Servo RL_servo;                                           //Right Lower Servo
+// Servo LU_servo;                                           //Left Upper Servo
+// Servo LL_servo;                                           //Left Lower Servo
+// Servo HH_servo;                                           //Head horizontal servo
+// Servo HV_servo;                                           //Head vertical servo
+//
 //Pin 12 = DIN, Pin 11 = CLK, Pin 10 = CS
 LedControl lc=LedControl(12,11,10,DEVICES_NUMBER);
 
@@ -48,12 +48,12 @@ void map_rows(int row, byte left, byte right);
 
 /**************************** Setup() ****************************/
 void setup() {
-    RU_servo.attach(RIGHT_UPPER_SERVO);
-    RL_servo.attach(RIGHT_LOWER_SERVO);
-    LU_servo.attach(LEFT_UPPER_SERVO);
-    LL_servo.attach(LEFT_LOWER_SERVO);
-    HH_servo.attach(HEAD_HOR_SERVO);
-    HV_servo.attach(HEAD_VER_SERVO);
+    // RU_servo.attach(RIGHT_UPPER_SERVO);
+    // RL_servo.attach(RIGHT_LOWER_SERVO);
+    // LU_servo.attach(LEFT_UPPER_SERVO);
+    // LL_servo.attach(LEFT_LOWER_SERVO);
+    // HH_servo.attach(HEAD_HOR_SERVO);
+    // HV_servo.attach(HEAD_VER_SERVO);
 
     for (int i = 0; i < DEVICES_NUMBER; i++) {
         lc.shutdown(i, false);
@@ -99,27 +99,27 @@ void sendData(){
 
 void one_face_detected(){
     // salut using right arm
-    RU_servo.write(SALUT_RU_ANGLE);\
-    RL_servo.write(SALUT_RL_ANGLE);
+    // RU_servo.write(SALUT_RU_ANGLE);\
+    // RL_servo.write(SALUT_RL_ANGLE);
     smily_face_one();
     delay(MOVE_DELAY);
-    RU_servo.write(0);
-    RL_servo.write(0);
+    // RU_servo.write(0);
+    // RL_servo.write(0);
     clear_screen();
 }
 
 void two_faces_detected(){
     // salut using two arms
-    RU_servo.write(SALUT_RU_ANGLE);
-    LU_servo.write(SALUT_LU_ANGLE);
-    RL_servo.write(SALUT_RL_ANGLE);
-    LL_servo.write(SALUT_LL_ANGLE);
+    // RU_servo.write(SALUT_RU_ANGLE);
+    // LU_servo.write(SALUT_LU_ANGLE);
+    // RL_servo.write(SALUT_RL_ANGLE);
+    // LL_servo.write(SALUT_LL_ANGLE);
     smily_face_two();
     delay(MOVE_DELAY);
-    RU_servo.write(0);
-    LU_servo.write(0);
-    RL_servo.write(0);
-    LL_servo.write(0);
+    // RU_servo.write(0);
+    // LU_servo.write(0);
+    // RL_servo.write(0);
+    // LL_servo.write(0);
     clear_screen();
 }
 
@@ -132,7 +132,7 @@ void smily_face_two() {
 }
 
 void clear_screen(){
-  
+
 }
 
 void map_rows(int row, byte left, byte right){
