@@ -6,7 +6,7 @@
  * Responsible for the __Face Recognition__ operations.
  * Runs __Raspbain OS__.
  * Connects to a camera module.
- * Communicates with Arduino Mega using I2C
+ * I2C bus master.
 
 ##### 2. Raspberry Pi Two:
   * Responsible for the __Voice Commands__.
@@ -15,7 +15,7 @@
   * Controls DC motors
 
 ##### 3. Arduino Mega:
-  * Controls _servos_ and _Led Matrix_.
+  * Controls _Led Matrix_.
   * Takes Commands from Raspberry Pi One through I2C.
 
 ---
@@ -44,7 +44,9 @@ Choose I2C and Enable it
 
 > sudo pip3 install smbus2
 
-##### 4. System packages 
+> sudo pip3 install adafruit-circuitpython-servokit
+
+##### 4. System packages
 > sudo apt-get install libjasper-dev
 
 > sudo apt-get install openexr
@@ -63,7 +65,7 @@ Choose I2C and Enable it
 
 > sudo apt-get install libatlas-base-dev gfortran
 
-> sudo apt-get install libqt4-dev 
+> sudo apt-get install libqt4-dev
 
 
 ---
