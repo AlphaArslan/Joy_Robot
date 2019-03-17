@@ -17,6 +17,11 @@ SALUT_RL_ANGLE    = 45                             # Right Lower servo angle for
 SALUT_LU_ANGLE    = 90                             # Left upper servo angle for SALUT move
 SALUT_LL_ANGLE    = 45                             # Left Lower servo angle for SALUT move
 
+DEFAULT_RU_ANGLE    = 0
+DEFAULT_RL_ANGLE    = 0
+DEFAULT_LU_ANGLE    = 180
+DEFAULT_LL_ANGLE    = 0
+
 # servo channel number
 RIGHT_UPPER_SERVO = 1
 RIGHT_LOWER_SERVO = 2
@@ -36,6 +41,12 @@ ONE_FACE_CODE = 1
 TWO_FACE_CODE = 2
 
 kit = ServoKit(channels=16)
+
+# reset servos
+kit.servo[RIGHT_UPPER_SERVO].angle = DEFAULT_RU_ANGLE
+kit.servo[LEFT_UPPER_SERVO].angle  = DEFAULT_LU_ANGLE
+kit.servo[RIGHT_LOWER_SERVO].angle = DEFAULT_RL_ANGLE
+kit.servo[LEFT_LOWER_SERVO].angle  = DEFAULT_LL_ANGLE
 
 
 ################ Functions
@@ -62,8 +73,8 @@ def move_servos(faces):
         kit.servo[RIGHT_UPPER_SERVO].angle = SALUT_RU_ANGLE
         kit.servo[RIGHT_LOWER_SERVO].angle = SALUT_LU_ANGLE
         time.sleep(SALUT_DELAY)
-        kit.servo[RIGHT_UPPER_SERVO].angle = 0
-        kit.servo[RIGHT_LOWER_SERVO].angle = 0
+        kit.servo[RIGHT_UPPER_SERVO].angle = DEFAULT_RU_ANGLE
+        kit.servo[RIGHT_LOWER_SERVO].angle = DEFAULT_RL_ANGLE
 
     elif faces > 1:
         kit.servo[RIGHT_UPPER_SERVO].angle = SALUT_RU_ANGLE
@@ -71,10 +82,10 @@ def move_servos(faces):
         kit.servo[RIGHT_LOWER_SERVO].angle = SALUT_RL_ANGLE
         kit.servo[LEFT_LOWER_SERVO].angle  = SALUT_LL_ANGLE
         time.sleep(SALUT_DELAY)
-        kit.servo[RIGHT_UPPER_SERVO].angle = 0
-        kit.servo[LEFT_UPPER_SERVO].angle  = 0
-        kit.servo[RIGHT_LOWER_SERVO].angle = 0
-        kit.servo[LEFT_LOWER_SERVO].angle  = 0
+        kit.servo[RIGHT_UPPER_SERVO].angle = DEFAULT_RU_ANGLE
+        kit.servo[LEFT_UPPER_SERVO].angle  = DEFAULT_LU_ANGLE
+        kit.servo[RIGHT_LOWER_SERVO].angle = DEFAULT_RL_ANGLE
+        kit.servo[LEFT_LOWER_SERVO].angle  = DEFAULT_LL_ANGLE
 
 
 ################ Main
