@@ -1,6 +1,5 @@
 /**************************** Include ****************************/
 #include <Wire.h>
-// #include <Servo.h>
 #include "LedControl.h"
 
 /**************************** Define *****************************/
@@ -12,29 +11,9 @@
 #define         DEVICES_NUMBER                4
 #define         BRIGHTNESS                    8
 
-// // servo angles
-// #define         SALUT_RU_ANGLE                90          // Right upper servo angle for SALUT move
-// #define         SALUT_RL_ANGLE                45          // Right Lower servo angle for SALUT move
-// #define         SALUT_LU_ANGLE                90          // Left upper servo angle for SALUT move
-// #define         SALUT_LL_ANGLE                45          // Left Lower servo angle for SALUT move
-
-// // pin connections
-// #define         RIGHT_UPPER_SERVO             4
-// #define         RIGHT_LOWER_SERVO             5
-// #define         LEFT_UPPER_SERVO              6
-// #define         LEFT_LOWER_SERVO              7
-// #define         HEAD_HOR_SERVO                8           // horizontal
-// #define         HEAD_VER_SERVO                9           // vertical
-
 /************************* Global Var. ***************************/
 int number = 0;
-// Servo RU_servo;                                           //Right Upper Servo
-// Servo RL_servo;                                           //Right Lower Servo
-// Servo LU_servo;                                           //Left Upper Servo
-// Servo LL_servo;                                           //Left Lower Servo
-// Servo HH_servo;                                           //Head horizontal servo
-// Servo HV_servo;                                           //Head vertical servo
-//
+
 //Pin 12 = DIN, Pin 11 = CLK, Pin 10 = CS
 LedControl lc=LedControl(12,11,10,DEVICES_NUMBER);
 
@@ -45,15 +24,9 @@ void smily_face_one();
 void smily_face_two();
 void clear_screen();
 void map_rows(int row, byte left, byte right);
-
+byte reverse_byte(byte);
 /**************************** Setup() ****************************/
 void setup() {
-    // RU_servo.attach(RIGHT_UPPER_SERVO);
-    // RL_servo.attach(RIGHT_LOWER_SERVO);
-    // LU_servo.attach(LEFT_UPPER_SERVO);
-    // LL_servo.attach(LEFT_LOWER_SERVO);
-    // HH_servo.attach(HEAD_HOR_SERVO);
-    // HV_servo.attach(HEAD_VER_SERVO);
 
     for (int i = 0; i < DEVICES_NUMBER; i++) {
         lc.shutdown(i, false);
@@ -98,28 +71,14 @@ void sendData(){
 }
 
 void one_face_detected(){
-    // salut using right arm
-    // RU_servo.write(SALUT_RU_ANGLE);\
-    // RL_servo.write(SALUT_RL_ANGLE);
     smily_face_one();
     delay(MOVE_DELAY);
-    // RU_servo.write(0);
-    // RL_servo.write(0);
     clear_screen();
 }
 
 void two_faces_detected(){
-    // salut using two arms
-    // RU_servo.write(SALUT_RU_ANGLE);
-    // LU_servo.write(SALUT_LU_ANGLE);
-    // RL_servo.write(SALUT_RL_ANGLE);
-    // LL_servo.write(SALUT_LL_ANGLE);
     smily_face_two();
     delay(MOVE_DELAY);
-    // RU_servo.write(0);
-    // LU_servo.write(0);
-    // RL_servo.write(0);
-    // LL_servo.write(0);
     clear_screen();
 }
 
@@ -145,23 +104,38 @@ void map_rows(int row, byte left, byte right){
     /*
                 |                LEFT HALF            |            RIGHT HALF               |
         --------|-------------------------------------|-------------------------------------|
-        ROW 0   |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
+        ROW 0   |   *    *   *   *   *   *  01  00    |    *    *   *   *   *   *  01  00   |
         ROW 1   |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
         ROW 2   |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
-        ROW 3   |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
-        ROW 4   |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
+        ROW 3   |   *    *   DEVICE  *   *   *   *    |    *    *   DEVICE  *   *   *   *   |
+        ROW 4   |   *    *   * 3 *   *   *   *   *    |    *    *   * 2 *   *   *   *   *   |
         ROW 5   |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
         ROW 6   |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
-        ROW 7   |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
+        ROW 7   |  77   76   *   *   *   *   *   *    |   77   76   *   *   *   *   *   *   |
         --------|-------------------------------------|-------------------------------------|
-        ROW 8   |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
+        ROW 8   |   *    *   *   *   *   *  76  77    |    *    *   *   *   *   *  76  77   |
         ROW 9   |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
         ROW 11  |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
-        ROW 10  |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
-        ROW 12  |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
+        ROW 10  |   *    *   DEVICE  *   *   *   *    |    *    *   DEVICE  *   *   *   *   |
+        ROW 12  |   *    *   * 0 *   *   *   *   *    |    *    *   * 1 *   *   *   *   *   |
         ROW 14  |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
         ROW 13  |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
-        ROW 15  |   *    *   *   *   *   *   *   *    |    *    *   *   *   *   *   *   *   |
+        ROW 15  |  00   01   *   *   *   *   *   *    |   00   01   *   *   *   *   *   *   |
         --------|-------------------------------------|-------------------------------------|
     */
+
+    if(row > 7){
+        lc.setRow(0, 15-row, left);
+        lc.setRow(1, 15-row, right);
+    }else{
+        lc.setRow(3, row, reverse_byte(left));
+        lc.setRow(2, row, reverse_byte(right));
+    }
+}
+
+byte reverse_byte(byte b){
+    b = (b & 0xF0) >> 4 | (b & 0x0F) << 4;
+    b = (b & 0xCC) >> 2 | (b & 0x33) << 2;
+    b = (b & 0xAA) >> 1 | (b & 0x55) << 1;
+    return b;
 }
