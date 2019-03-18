@@ -15,12 +15,12 @@ ARDUINO_ADDRESS   = 0x04
 SALUT_RU_ANGLE    = 90                             # Right upper servo angle for SALUT move
 SALUT_RL_ANGLE    = 45                             # Right Lower servo angle for SALUT move
 SALUT_LU_ANGLE    = 90                             # Left upper servo angle for SALUT move
-SALUT_LL_ANGLE    = 45                             # Left Lower servo angle for SALUT move
+SALUT_LL_ANGLE    = 135                            # Left Lower servo angle for SALUT move
 
 DEFAULT_RU_ANGLE    = 0
 DEFAULT_RL_ANGLE    = 0
 DEFAULT_LU_ANGLE    = 180
-DEFAULT_LL_ANGLE    = 0
+DEFAULT_LL_ANGLE    = 180
 
 # servo channel number
 RIGHT_UPPER_SERVO = 1
