@@ -17,14 +17,70 @@ int number = 0;
 //Pin 12 = DIN, Pin 11 = CLK, Pin 10 = CS
 LedControl lc=LedControl(12,11,10,DEVICES_NUMBER);
 
+
+byte normal_1[]={
+  0b00000000 , 0b00000000 ,
+  0b00010000 , 0b00010000 ,
+  0b00111000 , 0b00111000 ,
+  0b01111100 , 0b01111100 ,
+  0b01111100 , 0b01111100 ,
+  0b00111000 , 0b00111000 ,
+  0b00010000 , 0b00010000 ,
+  0b00000000 , 0b00000000 ,
+  0b00000000 , 0b00000000 ,
+  0b00000000 , 0b00000000 ,
+  0b00001111 , 0b11110000 ,
+  0b00001111 , 0b11110000 ,
+  0b00001111 , 0b11110000 ,
+  0b00000000 , 0b00000000 ,
+  0b00000000 , 0b00000000 ,
+  0b00000000 , 0b00000000
+};
+
+byte normal_2[]={
+    0b00000000 , 0b00000000 ,
+    0b00000000 , 0b00000000 ,
+    0b00000000 , 0b00000000 ,
+    0b00111110 , 0b01111100 ,
+    0b00111110 , 0b01111100 ,
+    0b00000000 , 0b00000000 ,
+    0b00000000 , 0b00000000 ,
+    0b00000000 , 0b00000000 ,
+    0b00000000 , 0b00000000 ,
+    0b00000000 , 0b00000000 ,
+    0b00001111 , 0b11110000 ,
+    0b00001111 , 0b11110000 ,
+    0b00001111 , 0b11110000 ,
+    0b00000000 , 0b00000000 ,
+    0b00000000 , 0b00000000 ,
+    0b00000000 , 0b00000000
+};
+
+byte smily[]={
+  0b00000000 , 0b00000000 ,
+  0b00010000 , 0b00010000 ,
+  0b00111000 , 0b00111000 ,
+  0b01111100 , 0b01111100 ,
+  0b01111100 , 0b01111100 ,
+  0b00111000 , 0b00111000 ,
+  0b00010000 , 0b00010000 ,
+  0b00000000 , 0b00000000 ,
+  0b00000000 , 0b00000000 ,
+  0b00000000 , 0b00000000 ,
+  0b00001111 , 0b11110000 ,
+  0b00011111 , 0b11111000 ,
+  0b00001111 , 0b11110000 ,
+  0b00000011 , 0b11000000 ,
+  0b00000000 , 0b00000000 ,
+  0b00000000 , 0b00000000
+};
+
 /************************** Functions ****************************/
-void one_face_detected();
-void two_faces_detected();
-void smily_face_one();
-void smily_face_two();
+void smily_face();
 void clear_screen();
 void map_rows(int row, byte left, byte right);
 byte reverse_byte(byte);
+
 /**************************** Setup() ****************************/
 void setup() {
 
@@ -47,22 +103,20 @@ void setup() {
 
 /**************************** loop() *****************************/
 void loop() {
-    delay(100);
+    for(int i = 0; i<16; i++){
+        map_rows(i, normal_1[i*2], normal_1[i*2 +1]);
+    }
+    delay(800);
+    for(int i = 0; i<16; i++){
+        map_rows(i, normal_2[i*2], normal_2[i*2 +1]);
+    }
+    delay(2000);
 }
 
 /*********************** Func. Definition *************************/
 // callback for received data
 void receiveData(int byteCount){
-
-    while(Wire.available()) {
-        number = Wire.read();
-        Serial.print("data received: ");
-        Serial.println(number);
-        switch (number) {
-          case ONE_FACE_CODE: one_face_detected(); break;
-          case TWO_FACE_CODE: two_faces_detected(); break;
-        }
-    }
+    smily_face();
 }
 
 // callback for sending data
@@ -70,28 +124,19 @@ void sendData(){
     Wire.write(number);
 }
 
-void one_face_detected(){
-    smily_face_one();
+void smily_face() {
+    for(int i = 0; i<16; i++){
+        map_rows(i, smily[i*2], smily[i*2 +1]);
+    }
     delay(MOVE_DELAY);
     clear_screen();
-}
-
-void two_faces_detected(){
-    smily_face_two();
-    delay(MOVE_DELAY);
-    clear_screen();
-}
-
-void smily_face_one() {
-
-}
-
-void smily_face_two() {
-
 }
 
 void clear_screen(){
-
+  lc.clearDisplay(0);
+  lc.clearDisplay(1);
+  lc.clearDisplay(2);
+  lc.clearDisplay(3);
 }
 
 void map_rows(int row, byte left, byte right){

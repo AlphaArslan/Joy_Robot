@@ -20,7 +20,7 @@
 
 ---
 ## Setup
-#### Raspberry Pi One [Face Detection]
+###  - Raspberry Pi One [Face Detection]
 ##### 1. Enable Camera module:
 > sudo raspi-config
 
@@ -66,6 +66,8 @@ Choose I2C and Enable it
 > sudo apt-get install libatlas-base-dev gfortran
 
 > sudo apt-get install libqt4-dev
+
+## - Raspberry Pi Two [Google Voice AIY]
 
 
 ---
