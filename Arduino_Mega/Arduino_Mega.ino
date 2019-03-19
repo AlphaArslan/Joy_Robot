@@ -113,7 +113,12 @@ void loop() {
 /*********************** Func. Definition *************************/
 // callback for received data
 void receiveData(int byteCount){
-    smily_face();
+  while(Wire.available()) {
+      number = Wire.read();
+      Serial.print("data received: ");
+      Serial.println(number);
+      smily_face();
+  }
 }
 
 // callback for sending data
