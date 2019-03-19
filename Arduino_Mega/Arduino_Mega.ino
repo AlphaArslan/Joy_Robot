@@ -127,6 +127,7 @@ void sendData(){
 }
 
 void smily_face() {
+    clear_screen();
     for(int i = 0; i<16; i++){
         map_rows(i, smily[i*2], smily[i*2 +1]);
     }
