@@ -99,18 +99,15 @@ void setup() {
     Wire.onRequest(sendData);
 
     Serial.println("Ready!");
+
+    for(int i = 0; i<16; i++){
+        map_rows(i, normal_2[i*2], normal_2[i*2 +1]);
+    }
 }
 
 /**************************** loop() *****************************/
 void loop() {
-    for(int i = 0; i<16; i++){
-        map_rows(i, normal_1[i*2], normal_1[i*2 +1]);
-    }
-    delay(800);
-    for(int i = 0; i<16; i++){
-        map_rows(i, normal_2[i*2], normal_2[i*2 +1]);
-    }
-    delay(2000);
+    delay(100);
 }
 
 /*********************** Func. Definition *************************/
@@ -130,6 +127,9 @@ void smily_face() {
     }
     delay(MOVE_DELAY);
     clear_screen();
+    for(int i = 0; i<16; i++){
+        map_rows(i, normal_2[i*2], normal_2[i*2 +1]);
+    }
 }
 
 void clear_screen(){
@@ -170,11 +170,11 @@ void map_rows(int row, byte left, byte right){
     */
 
     if(row > 7){
-        lc.setRow(0, 15-row, left);
-        lc.setRow(1, 15-row, right);
+        lc.setRow(0, 15-row, reverse_byte(left));
+        lc.setRow(1, 15-row, reverse_byte(right));
     }else{
-        lc.setRow(3, row, reverse_byte(left));
-        lc.setRow(2, row, reverse_byte(right));
+        lc.setRow(3, row, left);
+        lc.setRow(2, row, right);
     }
 }
 
