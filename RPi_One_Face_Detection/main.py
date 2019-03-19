@@ -56,27 +56,27 @@ def get_frame():
     frame = rawCapture.array
     return frame
 
-def count_faces(frame):
+def find_faces(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray)
-    return len(faces)
+    return faces
 
-def send_command(faces = 0):
-    if faces is not 0 :
-        if faces is 1 :
+def send_command(faces_number):
+    if faces_number is not 0 :
+        if faces_number is 1 :
             bus.write_byte(ARDUINO_ADDRESS, ONE_FACE_CODE)
-        elif faces is 2:
+        elif faces_number is 2:
             bus.write_byte(ARDUINO_ADDRESS, TWO_FACE_CODE)
 
 def move_servos(faces):
-    if faces is 1:
+    if len(faces) is 1:
         kit.servo[RIGHT_UPPER_SERVO].angle = SALUT_RU_ANGLE
         kit.servo[RIGHT_LOWER_SERVO].angle = SALUT_LU_ANGLE
         time.sleep(SALUT_DELAY)
         kit.servo[RIGHT_UPPER_SERVO].angle = DEFAULT_RU_ANGLE
         kit.servo[RIGHT_LOWER_SERVO].angle = DEFAULT_RL_ANGLE
 
-    elif faces > 1:
+    elif len(faces) > 1:
         kit.servo[RIGHT_UPPER_SERVO].angle = SALUT_RU_ANGLE
         kit.servo[LEFT_UPPER_SERVO].angle  = SALUT_LU_ANGLE
         kit.servo[RIGHT_LOWER_SERVO].angle = SALUT_RL_ANGLE
@@ -92,8 +92,9 @@ def move_servos(faces):
 if __name__ == '__main__':
     while True:
         frame = get_frame()
-        faces_number = count_faces(frame)
-        send_command(faces = faces_number)
-        move_servos(faces_number)
+        faces = find_faces(frame)
+        faces_number = len(faces)
+        send_command(faces_number)
+        move_servos(faces)
         print(faces_number)
         time.sleep(1)
