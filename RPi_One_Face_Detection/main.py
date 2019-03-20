@@ -30,6 +30,10 @@ LEFT_LOWER_SERVO  = 4
 HEAD_HOR_SERVO    = 5                              # horizontal
 HEAD_VER_SERVO    = 6                              # vertical
 
+# Head Movement
+RIGHT_EDGE        = 100
+LEFT_EDGE         = 300
+HEAD_HOR_SPAN     = 60
 
 ################ Setup
 camera = PiCamera()
@@ -71,6 +75,8 @@ def send_command(faces_number):
 def move_servos(faces):
     if len(faces) is 1:
         x = faces[0][2] /2 + faces[0][2] /2
+        angle = translate(x, RIGHT_EDGE, LEFT_EDGE, 90 - HEAD_HOR_SPAN, 90 + HEAD_HOR_SPAN)
+        kit.servo[HEAD_HOR_SERVO].angle    = angle
         kit.servo[RIGHT_UPPER_SERVO].angle = SALUT_RU_ANGLE
         kit.servo[RIGHT_LOWER_SERVO].angle = SALUT_LU_ANGLE
         time.sleep(SALUT_DELAY)
@@ -88,6 +94,13 @@ def move_servos(faces):
         kit.servo[RIGHT_LOWER_SERVO].angle = DEFAULT_RL_ANGLE
         kit.servo[LEFT_LOWER_SERVO].angle  = DEFAULT_LL_ANGLE
 
+def translate(value, leftMin, leftMax, rightMin, rightMax):
+        leftSpan = leftMax - leftMin
+        rightSpan = rightMax - rightMin
+
+        valueScaled = float(value - leftMin) / float(leftSpan)
+
+        return rightMin + (valueScaled * rightSpan)
 
 ################ Main
 if __name__ == '__main__':
