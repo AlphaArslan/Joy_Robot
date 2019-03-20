@@ -63,13 +63,14 @@ def find_faces(frame):
 
 def send_command(faces_number):
     if faces_number is not 0 :
-        if faces_number is 1 :
+        try:
             bus.write_byte(ARDUINO_ADDRESS, ONE_FACE_CODE)
-        elif faces_number is 2:
-            bus.write_byte(ARDUINO_ADDRESS, TWO_FACE_CODE)
+        except:
+            print("Arduino not Connected")
 
 def move_servos(faces):
     if len(faces) is 1:
+        x = faces[0][2] /2 + faces[0][2] /2
         kit.servo[RIGHT_UPPER_SERVO].angle = SALUT_RU_ANGLE
         kit.servo[RIGHT_LOWER_SERVO].angle = SALUT_LU_ANGLE
         time.sleep(SALUT_DELAY)
