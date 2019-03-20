@@ -69,11 +69,8 @@ def find_faces(frame):
 
 def send_command(faces_number):
     if faces_number is not 0 :
-        try:
-            bus.write_byte(ARDUINO_ADDRESS, ONE_FACE_CODE)
-        except:
-            print("Arduino not Connected")
-
+        bus.write_byte(ARDUINO_ADDRESS, ONE_FACE_CODE)
+        
 def move_servos(faces):
     if len(faces) is 1:
         x = faces[0][2] /2 + faces[0][2] /2
@@ -123,7 +120,13 @@ if __name__ == '__main__':
         frame = get_frame()
         faces = find_faces(frame)
         faces_number = len(faces)
-        send_command(faces_number)
-        move_servos(faces)
         print(faces_number)
+        try:
+            send_command(faces_number)
+        except:
+            print("Error Sending command to Arduino")
+        try:
+            move_servos(faces)
+        except:
+            print("Error Sending command to Servos")
         time.sleep(1)
