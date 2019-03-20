@@ -31,9 +31,11 @@ HEAD_HOR_SERVO    = 5                              # horizontal
 HEAD_VER_SERVO    = 6                              # vertical
 
 # Head Movement
-RIGHT_EDGE        = 100
-LEFT_EDGE         = 300
-HEAD_HOR_SPAN     = 60
+RIGHT_EDGE        = 50
+LEFT_EDGE         = 450
+HEAD_HOR_SPAN     = 70
+DEFAULT_HH_ANGLE  = 90
+DEFAULT_HV_ANGLE  = 90
 
 ################ Setup
 camera = PiCamera()
@@ -75,15 +77,25 @@ def send_command(faces_number):
 def move_servos(faces):
     if len(faces) is 1:
         x = faces[0][2] /2 + faces[0][2] /2
-        angle = translate(x, RIGHT_EDGE, LEFT_EDGE, 90 - HEAD_HOR_SPAN, 90 + HEAD_HOR_SPAN)
+        angle = translate(x, RIGHT_EDGE, LEFT_EDGE, DEFAULT_HH_ANGLE - HEAD_HOR_SPAN, DEFAULT_HH_ANGLE + HEAD_HOR_SPAN)
         kit.servo[HEAD_HOR_SERVO].angle    = angle
+        kit.servo[HEAD_VER_SERVO].angle    = 60
+
         kit.servo[RIGHT_UPPER_SERVO].angle = SALUT_RU_ANGLE
         kit.servo[RIGHT_LOWER_SERVO].angle = SALUT_LU_ANGLE
         time.sleep(SALUT_DELAY)
         kit.servo[RIGHT_UPPER_SERVO].angle = DEFAULT_RU_ANGLE
         kit.servo[RIGHT_LOWER_SERVO].angle = DEFAULT_RL_ANGLE
 
+        kit.servo[HEAD_HOR_SERVO].angle    = DEFAULT_HH_ANGLE
+        kit.servo[HEAD_VER_SERVO].angle    = DEFAULT_HV_ANGLE
+
     elif len(faces) > 1:
+        x = faces[0][2] /2 + faces[0][2] /2
+        angle = translate(x, RIGHT_EDGE, LEFT_EDGE, DEFAULT_HH_ANGLE - HEAD_HOR_SPAN, DEFAULT_HH_ANGLE + HEAD_HOR_SPAN)
+        kit.servo[HEAD_HOR_SERVO].angle    = angle
+        kit.servo[HEAD_VER_SERVO].angle    = 60
+
         kit.servo[RIGHT_UPPER_SERVO].angle = SALUT_RU_ANGLE
         kit.servo[LEFT_UPPER_SERVO].angle  = SALUT_LU_ANGLE
         kit.servo[RIGHT_LOWER_SERVO].angle = SALUT_RL_ANGLE
@@ -93,6 +105,9 @@ def move_servos(faces):
         kit.servo[LEFT_UPPER_SERVO].angle  = DEFAULT_LU_ANGLE
         kit.servo[RIGHT_LOWER_SERVO].angle = DEFAULT_RL_ANGLE
         kit.servo[LEFT_LOWER_SERVO].angle  = DEFAULT_LL_ANGLE
+
+        kit.servo[HEAD_HOR_SERVO].angle    = DEFAULT_HH_ANGLE
+        kit.servo[HEAD_VER_SERVO].angle    = DEFAULT_HV_ANGLE
 
 def translate(value, leftMin, leftMax, rightMin, rightMax):
         leftSpan = leftMax - leftMin
