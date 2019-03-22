@@ -67,8 +67,22 @@ Choose I2C and Enable it
 
 > sudo apt-get install libqt4-dev
 
-## - Raspberry Pi Two [Google Voice AIY]
+##### 5. Add to startup
+__rename the project folder to "project"__
 
+>chmod 755 launcher.sh
+
+test the launcher
+>sh launcher.sh
+
+open _crontab_
+>sudo crontab -e
+
+add this line at the end
+>@reboot sh /home/pi/project/launcher.sh &
+
+reboot
+>reboot
 
 ---
 ---
