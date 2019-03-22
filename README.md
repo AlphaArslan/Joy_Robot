@@ -68,6 +68,7 @@ Choose I2C and Enable it
 > sudo apt-get install libqt4-dev
 
 ##### 5. Add to startup
+__only Raspberry Pi One__
 __rename the project folder to "project"__
 
 >chmod 755 launcher.sh
