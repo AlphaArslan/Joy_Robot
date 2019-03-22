@@ -68,8 +68,9 @@ Choose I2C and Enable it
 > sudo apt-get install libqt4-dev
 
 ##### 5. Add to startup
-__only Raspberry Pi One__
-__rename the project folder to "project"__
+_Raspberry Pi One_
+
+_rename the project folder to "project"_
 
 >chmod 755 launcher.sh
 
@@ -84,12 +85,3 @@ add this line at the end
 
 reboot
 >reboot
-
----
----
-# I2C Communication scheme
-<!-- Table1 -->
-|   Code   | meaning            |
-| -------- | ------------------ |
-| 1        | One face detected  |
-| 2        | Two Faces detected |
